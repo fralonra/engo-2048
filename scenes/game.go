@@ -17,6 +17,12 @@ const (
 	buttonReset = "reset"
 )
 
+type Cell struct {
+	ecs.BasicEntity
+	common.RenderComponent
+	common.SpaceComponent
+}
+
 type GameScene struct {
 	utils.Scene
 }
@@ -93,18 +99,18 @@ func (g *GameSystem) Update(dt float32) {
 	}
 
 	// render
-	for idx := 0; idx < core.Size; idx++ {
-		row := a.game.GetRow(idx)
-		displayRow := []string{}
-		for _, item := range row {
-			var text string
-			if item > 0 {
-				text = strconv.Itoa(item)
-			} else {
-				text = ""
-			}
-			displayRow = append(displayRow, text)
-		}
-		a.table.Rows = append(a.table.Rows, displayRow)
-	}
+	// for idx := 0; idx < core.Size; idx++ {
+	// 	row := a.game.GetRow(idx)
+	// 	displayRow := []string{}
+	// 	for _, item := range row {
+	// 		var text string
+	// 		if item > 0 {
+	// 			text = strconv.Itoa(item)
+	// 		} else {
+	// 			text = ""
+	// 		}
+	// 		displayRow = append(displayRow, text)
+	// 	}
+	// 	a.table.Rows = append(a.table.Rows, displayRow)
+	// }
 }
