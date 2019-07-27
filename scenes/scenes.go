@@ -7,7 +7,7 @@ const (
 )
 
 const (
-	fontSizeL = 64
+	fontSizeL = 48
 	fontSizeM = 32
 	fontSizeS = 24
 )

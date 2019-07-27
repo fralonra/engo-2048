@@ -2,12 +2,13 @@ package scenes
 
 import (
 	"bytes"
+	"image/color"
+
 	"github.com/EngoEngine/ecs"
 	"github.com/EngoEngine/engo"
 	"github.com/EngoEngine/engo/common"
 	"github.com/fralonra/engo-utils"
 	"golang.org/x/image/font/gofont/gosmallcaps"
-	"image/color"
 )
 
 const (
@@ -19,6 +20,8 @@ var (
 	lgFont *common.Font
 	smFont *common.Font
 	mdFont *common.Font
+
+	frameColor = color.RGBA{0xbb, 0xad, 0xa0, 0xff}
 )
 
 type SplashScene struct {
@@ -31,6 +34,8 @@ func (*SplashScene) Preload() {
 }
 
 func (*SplashScene) Setup(u engo.Updater) {
+	common.SetBackground(frameColor)
+
 	w, _ := u.(*ecs.World)
 
 	w.AddSystem(&common.RenderSystem{})
@@ -71,8 +76,8 @@ func (*SplashScene) Setup(u engo.Updater) {
 		Font:  lgFont,
 		Text:  "Splash",
 		Position: engo.Point{
-			X: 300,
-			Y: 240,
+			X: 30,
+			Y: 30,
 		},
 	}
 	label1.Init()

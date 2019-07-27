@@ -7,8 +7,8 @@ import (
 
 const (
 	Title  = "2048"
-	Width  = 800
-	Height = 600
+	Width  = 324
+	Height = 324
 )
 
 func main() {

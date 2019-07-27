@@ -41,8 +41,8 @@ func (*MainMenuScene) Setup(u engo.Updater) {
 		Texture: "ui/button.png",
 		Gap:     30,
 		Position: engo.Point{
-			X: 300,
-			Y: 240,
+			X: 30,
+			Y: 30,
 		},
 		Entities: entities,
 	}
