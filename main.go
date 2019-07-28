@@ -12,7 +12,6 @@ const (
 )
 
 func main() {
-	engo.RegisterScene(scenes.MainMenu)
 	engo.RegisterScene(scenes.Game)
 
 	opts := engo.RunOptions{

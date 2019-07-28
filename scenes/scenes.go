@@ -2,19 +2,19 @@ package scenes
 
 const (
 	sceneSplash   = "splash"
-	sceneMainMenu = "mainmenu"
 	sceneGame     = "game"
+
+	messageChangeLabel = "changeLabel"
 )
 
 const (
-	fontSizeL = 48
-	fontSizeM = 32
-	fontSizeS = 24
+	fontSizeL = 32
+	fontSizeM = 24
+	fontSizeS = 18
 )
 
 var (
 	Splash   *SplashScene
-	MainMenu *MainMenuScene
 	Game     *GameScene
 )
 
@@ -22,9 +22,6 @@ func init() {
 	// Scene init
 	Splash = &SplashScene{}
 	Splash.Name = sceneSplash
-
-	MainMenu = &MainMenuScene{}
-	MainMenu.Name = sceneMainMenu
 
 	Game = &GameScene{}
 	Game.Name = sceneGame

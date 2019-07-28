@@ -106,6 +106,7 @@ func (*GameScene) Setup(u engo.Updater) {
 	// add systems
 	w.AddSystem(&common.RenderSystem{})
 	w.AddSystem(&common.MouseSystem{})
+	w.AddSystem(&HUDTextSystem{})
 	w.AddSystem(&GameSystem{
 		game:      game,
 		cellTable: cellTable,
@@ -163,10 +164,11 @@ func (g *GameSystem) Update(dt float32) {
 		g.game = core.NewGame()
 	}
 
-	g.render()
+	g.renderGame()
+	g.checkState()
 }
 
-func (g *GameSystem) render() {
+func (g *GameSystem) renderGame() {
 	for i := 0; i < core.Size; i++ {
 		row := g.game.GetRow(i)
 		for j := 0; j < core.Size; j++ {
@@ -175,3 +177,66 @@ func (g *GameSystem) render() {
 		}
 	}
 }
+
+func (g *GameSystem) checkState() {
+	switch g.game.State {
+	case core.StateNormal:
+		{
+			message := ChangeLabel{
+				Text: "MAX: " + strconv.Itoa(g.game.MaxNumber),
+			}
+			message.Message.Name = messageChangeLabel
+			engo.Mailbox.Dispatch(message)
+		}
+	case core.StateWin:
+		{
+			message := ChangeLabel{
+				Text: "You win",
+			}
+			message.Message.Name = messageChangeLabel
+			engo.Mailbox.Dispatch(message)
+		}
+	case core.StateLost:
+		{
+			message := ChangeLabel{
+				Text: "You lost",
+			}
+			message.Message.Name = messageChangeLabel
+			engo.Mailbox.Dispatch(message)
+		}
+	}
+}
+
+type HUDTextSystem struct {
+	utils.System
+
+	label utils.Label
+}
+
+func (h *HUDTextSystem) New(w *ecs.World) {
+	engo.Mailbox.Listen(messageChangeLabel, func(m engo.Message) {
+		msg, ok := m.(ChangeLabel)
+		if !ok {
+			return
+		}
+		h.label.SetText(msg.Text)
+	})
+
+	h.label = utils.Label{
+		World: w,
+		Font:  smFont,
+		Position: engo.Point{
+			X: 10,
+			Y: 10,
+		},
+	}
+	h.label.Init()
+}
+
+type ChangeLabel struct {
+	utils.Message
+
+	Text string
+}
+
+

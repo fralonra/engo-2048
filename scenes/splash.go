@@ -73,8 +73,8 @@ func (*SplashScene) Setup(u engo.Updater) {
 
 	label1 := utils.Label{
 		World: w,
-		Font:  lgFont,
-		Text:  "Splash",
+		Font:  smFont,
+		Text:  "Press Space to start",
 		Position: engo.Point{
 			X: 30,
 			Y: 30,
@@ -91,6 +91,6 @@ type SplashSystem struct {
 
 func (*SplashSystem) Update(dt float32) {
 	if engo.Input.Button(buttonNext).JustPressed() {
-		engo.SetSceneByName(sceneMainMenu, false)
+		engo.SetSceneByName(sceneGame, false)
 	}
 }
